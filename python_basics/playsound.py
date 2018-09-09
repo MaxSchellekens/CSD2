@@ -1,7 +1,9 @@
 ## PlaySound, Test voor SimpleAudio
 import numpy as np
 import simpleaudio as sa
+import time
 
+i = int(input("Typ hoe vaak u het geluid wil horen. Druk hierna op Enter"))
 # calculate note frequencies
 A_freq = 440
 Csh_freq = A_freq * 2 ** (4 / 12)
@@ -25,7 +27,7 @@ audio *= 32767 / np.max(np.abs(audio))
 audio = audio.astype(np.int16)
 
 # start playback
-play_obj = sa.play_buffer(audio, 1, 2, sample_rate)
-
-# wait for playback to finish before exiting
-play_obj.wait_done()
+while i > 0:
+    play_obj = sa.play_buffer(audio, 1, 2, sample_rate)
+    play_obj.wait_done()
+    i = i - 1
