@@ -28,7 +28,7 @@ We will trigger events based on a timestamp.
   Currently the sequence is only played once.
   Alter the code to play it multiple times.
   hint: The timestamps list is emptied using the pop() function.
-  (multiple possible solutions)
+  (multiple possible solutions) CHECK.
 """
 
 # load 1 audioFile and store it into a list
@@ -38,23 +38,47 @@ samples = [sa.WaveObject.from_wave_file("../audioFiles/Dog2.wav"),
 
 playTimes = int(input('How many times would you like to hear the sequence?'))
 
-# set bpm
 bpm = 120
+print('BPM is set to ' + str(bpm) + ', you can change it now.')
+
+# set bpm
+def setBPM():
+    try:
+        bpm = int(input("What would you like the BPM to be? "))
+    except ValueError:
+        print('Please enter an integer. ')
+        setBPM()
+
+setBPM()
+
 # calculate the duration of a quarter note
 quarterNoteDuration = 60 / bpm
 # calculate the duration of a sixteenth note
 sixteenthNoteDuration = quarterNoteDuration / 4.0
 
 timestamps = []
+timestamps16th = [0, 2, 4, 8, 11]
 
 def listMaker():
     # create a list with ‘note timestamps' in 16th at which we should play the sample
-    timestamps16th = [0, 2, 4, 8, 11]
     # transform the sixteenthTimestamps to a timestamps list with time values
     for timestamp in timestamps16th:
       timestamps.append(timestamp * sixteenthNoteDuration)
 
+listMaker()
 print(timestamps)
+
+noteDurlist = [0.25, 0.5, 0.25, 0.5, 0.5, 1, 1]
+newTimestamps = []
+
+def durationsToTimestamps16th(noteDurlist):
+    count = 0
+    for noteDur in noteDurlist:
+        newTimestamps.append(count);
+        count = count + noteDur*4;
+
+durationsToTimestamps16th(noteDurlist)
+print(newTimestamps)
 
 def playBack():
     # retrieve first timestamp
